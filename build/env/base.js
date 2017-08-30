@@ -28,6 +28,7 @@ module.exports =  {
         new webpack.HotModuleReplacementPlugin() //热加载
     ],
     resolve: {
+        extensions: ['', '.js', '.vue'],
         alias: {
             'common-imgs': process.cwd() +  "/common/assets/imgs",
             'biz-imgs': process.cwd() + "/page/" + platform + "/" + projectPath + "/static/imgs",
@@ -37,8 +38,13 @@ module.exports =  {
     module: {
         loaders: [ //加载器，关于各个加载器的参数配置，可自行搜索之。
             {
+                test: /\.vue$/,
+                loader: 'vue'
+            },
+            {
                 test: /\.js$/,
-                loaders: ['babel-loader']
+                loader: 'babel',
+                exclude: /node_modules/
             },{
                 test: /\.css$/,
                 //配置css的抽取器、加载器。'-loader'可以省去
