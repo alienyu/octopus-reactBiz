@@ -1,6 +1,7 @@
 let path = require('path');
 let webpack = require('webpack');
-let perConf = require("../config/releaseConf.json");
+let env = process.env.NODE_ENV;
+let perConf = env == "local" ? require("../config/localConf.json") : require("../config/releaseConf.json");
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
 let pageName = perConf.pageName || "";
@@ -10,12 +11,13 @@ module.exports = {
     output: {
         path: process.cwd() + '/output', //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
         publicPath: "/output/"               //模板、样式、脚本、图片等资源对应的server上的路径
-    }
+    },
+    plugins: []
 };
 
 function runtime(page) {
     var entryID = platform + '-' + projectPath.replace("/", "-") + "/" + page + "/" + page.split("/").pop(); // web-multiPageBiz/level/test/test
-    var fileRoute = "./page/" + platform + "/" + projectPath + "/main/" + page; //page/web/multiPageBiz/main/level/test
+    var fileRoute = process.cwd() + "/page/" + platform + "/" + projectPath + "/main/" + page; //page/web/multiPageBiz/main/level/test
     module.exports.entry[entryID] = fileRoute + "/" + page.split("/").pop() + ".js"; //page/web/multiPageBiz/main/test/test.js
     module.exports.plugins.push(new HtmlWebpackPlugin({
         //根据模板插入css/js等生成最终HTML
@@ -35,7 +37,7 @@ function runtime(page) {
 
 function loadConfig(page) {
     module.exports.entry = {};
-    var pageList = require("./page/" + platform + "/" + projectPath + "/pageList.json")[projectPath];
+    var pageList = require(process.cwd() + "/page/" + platform + "/" + projectPath + "/pageList.json")[projectPath];
     if (page) {
         var eachPage = page.split(",");
         for (var i = 0; i < eachPage.length; i++) {

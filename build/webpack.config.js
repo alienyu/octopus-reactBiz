@@ -2,7 +2,7 @@ let merge = require("webpack-merge");
 let baseConf = require("./env/base.js");
 let envConf;
 let env = process.env.NODE_ENV;
-if(env == "test" || env == "prod") {
+if(env) {
     envConf = require("./env/prod.js");
 } else {
     envConf = require("./env/dev.js");
