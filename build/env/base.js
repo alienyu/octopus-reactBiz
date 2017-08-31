@@ -9,7 +9,7 @@ if(!env || (env == "local")) {
 }
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 let moduleName = platform + "-" + projectPath.replace("/", "-");
 
 module.exports =  {
@@ -30,9 +30,11 @@ module.exports =  {
     resolve: {
         extensions: ['', '.js', '.vue'],
         alias: {
+            'common-css': process.cwd() + "/common/assets/css/common.less",
             'common-imgs': process.cwd() +  "/common/assets/imgs",
             'biz-imgs': process.cwd() + "/page/" + platform + "/" + projectPath + "/static/imgs",
-            zepto: process.cwd() + '/common/assets/js/vendor/zepto.js'
+            zepto: process.cwd() + '/common/assets/js/vendor/zepto.js',
+            vue: 'vue/dist/vue.js'
         }
     },
     module: {
@@ -62,7 +64,7 @@ module.exports =  {
                 loader: "html?attrs=img:src img:data-src&minimize=false"
             }, {
                 //文件加载器，处理文件静态资源
-                test: /\.(woff|woff2|ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
                 loader: 'file-loader?name=' + moduleName + '/common/fonts/[name].[ext]'
             }, {
                 //图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求
