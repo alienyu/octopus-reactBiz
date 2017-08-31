@@ -1,6 +1,8 @@
 {
   "singlePageBiz": [
-    "vueTest",
-    "reactTest"
+    "vue/test",
+    "vue/wholeTest",
+    "react/test",
+    "react/wholeTest"
   ]
 }
