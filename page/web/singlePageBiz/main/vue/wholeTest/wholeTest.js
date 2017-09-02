@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import wholeTest from './wholeTest.vue'
+import app from './app.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 import routeConfig from './router'
@@ -20,5 +20,5 @@ new Vue({
     router,
     //store,
     el: "#app",
-    render: h => h(wholeTest)
+    render: h => h(app)
 });
