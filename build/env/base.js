@@ -25,15 +25,10 @@ module.exports =  {
 
         new ExtractTextPlugin('[name].css'), //单独使用link标签加载css并设置路径，相对于output配置中的publicePath
 
-        new webpack.HotModuleReplacementPlugin(), //热加载
-
-        new webpack.optimize.CommonsChunkPlugin({
-            name: ['vendor'],
-            minChunks: Infinity
-        })
+        new webpack.HotModuleReplacementPlugin() //热加载
     ],
     resolve: {
-        extensions: ['', '.js', '.vue'],
+        extensions: ['', '.js', '.vue', '.jsx'],
         alias: {
             'common-css': process.cwd() + "/common/assets/css/common.less",
             'common-imgs': process.cwd() +  "/common/assets/imgs",
@@ -45,13 +40,24 @@ module.exports =  {
     module: {
         loaders: [ //加载器，关于各个加载器的参数配置，可自行搜索之。
             {
+                test: /\.jsx$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ["react"]
+                }
+            },
+            {
                 test: /\.vue$/,
                 loader: 'vue'
             },
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                query: {
+                    presets: ["react"]
+                }
             },{
                 test: /\.css$/,
                 //配置css的抽取器、加载器。'-loader'可以省去

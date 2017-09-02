@@ -1,11 +1,13 @@
 let path = require('path');
 let webpack = require('webpack');
+let merge = require("webpack-merge");
 let perConf = require("../config/localConf.json");
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
 let pageName = perConf.pageName || "";
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-module.exports = {
+let bizConf = require(process.cwd() + "/page/" + platform + "/" + projectPath + "/webpackConfig/config.js");
+let envConf = merge(bizConf, {
     output: {
         path: process.cwd(), //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
         publicPath: "/" //模板、样式、脚本、图片等资源对应的server上的路径
@@ -20,13 +22,12 @@ module.exports = {
         inline: true, //可以监控js变化
         hot: true //热启动
     }
-};
-
+});
 function runtime(page) {
     var entryID = platform + '-' + projectPath.replace("/", "-") + "/" + page; // web-multiPageBiz/level/test
     var fileRoute = process.cwd() + "/page/" + platform + "/" + projectPath + "/main/" + page; //page/web/multiPageBiz/main/level/test
-    module.exports.entry[entryID] = fileRoute + "/" + page.split("/").pop() + ".js"; //page/web/multiPageBiz/main/test/test.js
-    module.exports.plugins.push(new HtmlWebpackPlugin({
+    envConf.entry[entryID] = fileRoute + "/" + page.split("/").pop() + ".js"; //page/web/multiPageBiz/main/test/test.js
+    envConf.plugins.push(new HtmlWebpackPlugin({
         //根据模板插入css/js等生成最终HTML
         filename: entryID + ".html",
         //生成的html存放路径，相对于path
@@ -34,7 +35,7 @@ function runtime(page) {
         //js插入的位置，true/'head'/'body'/false
         inject: 'body',
         hash: true, //为静态资源生成hash值
-        chunks: [entryID, "vendor"], //需要引入的chunk，不配置就会引入所有页面的资源
+        chunks: Object.keys(envConf.entry), //需要引入的chunk，不配置就会引入所有页面的资源
         minify: {
             removeComments: true, //移除HTML中的注释
             collapseWhitespace: false //删除空白符与换行符
@@ -58,3 +59,5 @@ function loadConfig(page) {
 }
 
 loadConfig(pageName);
+
+module.exports = envConf;
