@@ -16,5 +16,4 @@ if(env) {
 } else {
     envConf = require("./env/dev.js");
 }
-console.log(envConf.entry);
 module.exports = envConf;

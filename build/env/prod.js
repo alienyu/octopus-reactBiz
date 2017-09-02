@@ -15,6 +15,7 @@ let envConf = merge(bizConf,{
     },
     plugins: []
 });
+let vendorEntry = Object.keys(envConf.entry);
 
 function runtime(page) {
     var entryID = platform + '-' + projectPath.replace("/", "-") + "/" + page + "/" + page.split("/").pop(); // web-multiPageBiz/level/test/test
@@ -28,7 +29,7 @@ function runtime(page) {
         //js插入的位置，true/'head'/'body'/false
         inject: 'body',
         hash: true, //为静态资源生成hash值
-        chunks: Object.keys(envConf.entry), //需要引入的chunk，不配置就会引入所有页面的资源
+        chunks: [entryID, ...vendorEntry], //需要引入的chunk，不配置就会引入所有页面的资源
         minify: {
             removeComments: true, //移除HTML中的注释
             collapseWhitespace: false //删除空白符与换行符
