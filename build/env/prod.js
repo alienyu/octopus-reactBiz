@@ -10,15 +10,15 @@ let HtmlWebpackPlugin = require('html-webpack-plugin');
 let bizConf = require(process.cwd() + "/page/" + platform + "/" + projectPath + "/webpackConfig/config.js");
 let envConf = merge(bizConf,{
     output: {
-        path: process.cwd() + '/output', //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
-        publicPath: "/octopus-biz/output/"               //模板、样式、脚本、图片等资源对应的server上的路径
+        path: process.cwd() + '/output/' + platform + "-" + projectPath.replace("/", "-") + "/" + pageName, //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
+        publicPath: './'               //模板、样式、脚本、图片等资源对应的server上的路径
     },
     plugins: []
 });
 let vendorEntry = Object.keys(envConf.entry);
 
 function runtime(page) {
-    var entryID = platform + '-' + projectPath.replace("/", "-") + "/" + page + "/" + page.split("/").pop(); // web-multiPageBiz/level/test/test
+    var entryID = page.split("/").pop(); // web-multiPageBiz/level/test/test
     var fileRoute = process.cwd() + "/page/" + platform + "/" + projectPath + "/main/" + page; //page/web/multiPageBiz/main/level/test
     envConf.entry[entryID] = fileRoute + "/" + page.split("/").pop() + ".js"; //page/web/multiPageBiz/main/test/test.js
     envConf.plugins.push(new HtmlWebpackPlugin({

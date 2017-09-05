@@ -1,8 +1,8 @@
 import React,{Component} from 'react'
 import {render,findDOMNode} from 'react-dom'
 
-import PageA from './page/pageA.jsx'
-import PageB from './page/pageB.jsx'
+import PageA from './views/pageA.jsx'
+import PageB from './views/pageB.jsx'
 
 export class App extends React.Component {
     constructor(props) {

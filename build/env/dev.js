@@ -17,7 +17,7 @@ let envConf = merge(bizConf, {
     //使用webpack-dev-server，提高开发效率
     devServer: {
         contentBase: './',
-        host: perConf.host || "localhost",
+        host: "localhost",
         port: 7777, //默认8080
         inline: true, //可以监控js变化
         hot: true //热启动

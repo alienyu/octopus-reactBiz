@@ -9,6 +9,7 @@ if(!env || (env == "local")) {
 }
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
+let pageName = perConf.pageName;
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 let moduleName = platform + "-" + projectPath.replace("/", "-");
 
@@ -69,6 +70,12 @@ module.exports =  {
                 //你也可以开发自己的loader哟。有关loader的写法可自行谷歌之。
                 loader: ExtractTextPlugin.extract('css!less')
             }, {
+                test: /\.(sass|scss)/,
+                //配置less的抽取器、加载器。中间!有必要解释一下，
+                //根据从右到左的顺序依次调用less、css加载器，前一个的输出是后一个的输入
+                //你也可以开发自己的loader哟。有关loader的写法可自行谷歌之。
+                loader: ExtractTextPlugin.extract('css!sass')
+            }, {
                 //html模板加载器，可以处理引用的静态资源，默认配置参数attrs=img:src，处理图片的src引用的资源
                 //比如你配置，attrs=img:src img:data-src就可以一并处理data-src引用的资源了，就像下面这样
                 test: /\.html$/,
@@ -76,12 +83,12 @@ module.exports =  {
             }, {
                 //文件加载器，处理文件静态资源
                 test: /\.(eot|svg|ttf|woff|woff2)(\?\S*)?$/,
-                loader: 'file-loader?name=' + moduleName + '/common/fonts/[name].[ext]'
+                loader: 'file-loader?name=common/fonts/[name].[ext]'
             }, {
                 //图片加载器，雷同file-loader，更适合图片，可以将较小的图片转成base64，减少http请求
                 //如下配置，将小于8192byte的图片转成base64码
                 test: /\.(png|jpg|gif|jpeg)$/,
-                loader: 'url-loader?limit=8192&name=' + moduleName + '/common/imgs/[hash].[ext]'
+                loader: 'url-loader?limit=8192&name=common/imgs/[hash].[ext]'
             }
         ]
     }
