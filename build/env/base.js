@@ -1,12 +1,7 @@
 let path = require('path');
 let webpack = require('webpack');
 let env = process.env.NODE_ENV;
-let perConf;
-if(!env || (env == "local")) {
-    perConf = require("../config/localConf.json")
-} else {
-    perConf = require("../config/releaseConf.json");
-}
+let perConf = require("../config/bizConfig.json");
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
 let pageName = perConf.pageName;
@@ -16,7 +11,7 @@ let moduleName = platform + "-" + projectPath.replace("/", "-");
 module.exports =  {
     output: {
         filename: '[name].js',           //每个页面对应的主js的生成配置
-        chunkFilename: 'js/[id].chunk.js'   //chunk生成的配置
+        chunkFilename: 'js/[name].chunk.js'   //chunk生成的配置
     },
     plugins: [
         new webpack.ProvidePlugin({

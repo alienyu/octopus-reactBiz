@@ -1,7 +1,7 @@
 let path = require('path');
 let webpack = require('webpack');
 let merge = require("webpack-merge");
-let perConf = require("../config/localConf.json");
+let perConf = require("../config/bizConfig.json");
 let platform = perConf.platform;
 let projectPath = perConf.projectPath;
 let pageName = perConf.pageName || "";
@@ -11,13 +11,13 @@ let envConf = merge(bizConf, {
     output: {
         path: process.cwd(), //输出目录的配置，模板、样式、脚本、图片等资源的路径配置都相对于它
         publicPath: "/" //模板、样式、脚本、图片等资源对应的server上的路径
-},
+    },
     plugins: [],
     devtool: "source-map",
     //使用webpack-dev-server，提高开发效率
     devServer: {
         contentBase: './',
-        host: "localhost",
+        host: perConf.host || "localhost",
         port: 7777, //默认8080
         inline: true, //可以监控js变化
         hot: true //热启动
@@ -38,11 +38,11 @@ function runtime(page) {
         inject: 'body',
         hash: true, //为静态资源生成hash值
         chunks: [entryID, ...vendorEntry], //需要引入的chunk，不配置就会引入所有页面的资源
-        minify: {
-            removeComments: true, //移除HTML中的注释
+    minify: {
+        removeComments: true, //移除HTML中的注释
             collapseWhitespace: false //删除空白符与换行符
-        }
-    }));
+    }
+}));
 }
 
 function loadConfig(page) {
