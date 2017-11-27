@@ -1,10 +1,19 @@
 import React,{Component} from 'react'
-import { Layout, Breadcrumb } from 'antd';
+import { hashHistory } from 'react-router'
+import { Layout, Breadcrumb, Button } from 'antd';
 const { Content } = Layout;
 
 export class Welcome extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    goToPageA() {
+        hashHistory.push("/pageA")
+    }
+
+    goToPageB() {
+        hashHistory.push("/pageB")
     }
 
     render() {
@@ -16,6 +25,8 @@ export class Welcome extends React.Component {
                 </Breadcrumb>
                 <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
                     欢迎使用react纯净版框架
+                    <Button type="primary" onClick={this.goToPageA}>pageA</Button>
+                    <Button type="primary" onClick={this.goToPageB}>pageB</Button>
                 </Content>
             </Layout>
         )

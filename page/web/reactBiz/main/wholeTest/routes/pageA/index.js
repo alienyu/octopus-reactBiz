@@ -3,12 +3,9 @@ import routeEnter from 'routeEnter'
 module.exports = Object.assign({
     path: "pageA",
     breadcrumbName: "页面",
-    getIndexRoute(nextState, callback) {
+    getComponent(nextState, callback) {
         require.ensure([], function (require) {
-            callback(null, {
-                breadcrumbName: '页面A',
-                component: require('./components/pageA.jsx')
-            })
+            callback(null,require('./components/pageA.jsx'))
         }, 'pageA')
     },
     getChildRoutes(partialNextState, cb) {
@@ -20,7 +17,7 @@ module.exports = Object.assign({
                     getComponent(nextState, cb) {
                         require.ensure([], (require) => {
                             cb(null, require('./components/subPagea.jsx'))
-                        },'subPagea')
+                        },'pageA_subPagea')
                     }
                 },
                 {
@@ -29,7 +26,7 @@ module.exports = Object.assign({
                     getComponent(nextState, cb) {
                         require.ensure([], (require) => {
                             cb(null, require('./components/subPageb.jsx'))
-                        },'subPageb')
+                        },'pageA_subPageb')
                     }
                 }
             ])

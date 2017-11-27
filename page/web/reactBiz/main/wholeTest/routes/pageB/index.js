@@ -20,7 +20,7 @@ module.exports = Object.assign({
                     getComponent(nextState, cb) {
                         require.ensure([], (require) => {
                             cb(null, require('./components/subPagea.jsx'))
-                        },'subPagea')
+                        },'pageB_subPagea')
                     }
                 },
                 {
@@ -29,7 +29,7 @@ module.exports = Object.assign({
                     getComponent(nextState, cb) {
                         require.ensure([], (require) => {
                             cb(null, require('./components/subPageb.jsx'))
-                        },'subPageb')
+                        },'pageB_subPageb')
                     }
                 }
             ])
