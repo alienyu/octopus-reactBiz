@@ -1,0 +1,18 @@
+{
+  "welcome": {
+    "index": "index",
+    "title": "welcome",
+    "text": "welcome to use react pure structure"
+  },
+  "menuBar": "this is menu bar",
+  "pageA": {
+    "breadCrumb": "pageA",
+    "text": "this is page A"
+  },
+  "pageB": {
+    "breadCrumb": "page B",
+    "text": "this is page B"
+  },
+  "subPageA": "this is subPage A",
+  "subPageB": "this is subPage B"
+}

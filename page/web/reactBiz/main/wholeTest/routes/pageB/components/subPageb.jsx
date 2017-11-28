@@ -7,7 +7,7 @@ export class subPageb extends React.Component {
 
     render() {
         return (
-            <div>这是pageB的subPageb</div>
+            <div>{intl.get("subPageB")}</div>
         )
     }
 }

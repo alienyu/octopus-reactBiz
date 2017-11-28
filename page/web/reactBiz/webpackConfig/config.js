@@ -12,13 +12,19 @@ module.exports = merge(baseConf, {
     },
     resolve: {
         alias: {
-            "routeEnter": process.cwd() + "/page/" + platform + "/" + projectPath + "/main/" + pageName + "/routes/routeEnter.js"
+            "routeEnter": process.cwd() + "/page/" + platform + "/" + projectPath + "/main/" + pageName + "/routes/routeEnter.js",
+            "ajax": process.cwd() + "/page/" + platform + "/" + projectPath + "/static/module/ajax.js"
         }
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
             name: ['react-vendor'],
             minChunks: Infinity
+        }),
+
+        new webpack.ProvidePlugin({
+            'ajax': 'ajax',
+            'intl': 'react-intl-universal'
         })
     ]
 });

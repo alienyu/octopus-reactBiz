@@ -1,0 +1,18 @@
+{
+  "welcome": {
+      "index": "首页",
+      "title": "欢迎",
+      "text": "欢迎使用react纯净版框架"
+  },
+  "menuBar": "这是菜单栏",
+  "pageA": {
+    "breadCrumb": "页面A",
+    "text": "这是页面A"
+  },
+  "pageB": {
+    "breadCrumb": "页面B",
+    "text": "这是页面B"
+  },
+  "subPageA": "这是子页面A",
+  "subPageB": "这是子页面B"
+}
