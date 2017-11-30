@@ -18,7 +18,7 @@ let envConf = merge(bizConf, {
     devServer: {
         contentBase: './',
         host: perConf.host || "localhost",
-        port: 7777, //默认8080
+        port: 6060, //默认8080
         inline: true, //可以监控js变化
         hot: true //热启动
     }
